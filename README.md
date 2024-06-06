@@ -20,6 +20,9 @@ The Amphibians Android app is designed to showcase various amphibians, including
 - **kotlinx.serialization**: For parsing JSON responses.
 - **Web Services**: To interact with the API.
 
+## WireFrame/Mockup
+<img width="311" alt="Screenshot 2024-06-06 at 13 29 23" src="https://github.com/Hitendra27/Amphibians/assets/73651340/db50bc0b-8986-40d6-b5f7-6cb4d74d65ff">
+
 ## Getting Started
 To get a local copy up and running follow these simple steps.
 
