@@ -1,16 +1,19 @@
 # Amphibians Android App
 
 ## Overview
-The Amphibians Android app is designed to showcase various amphibians, including their names, types, images, and descriptions. This app fetches data from an API and displays it using a modern Android architecture. 
+Amphibians is an Android app that displays various amphibians' information, including their names, types, images, and descriptions fetched from an API. The app leverages modern Android development tools and best practices to provide a clean and efficient user experience.
 
 ## Features
-- Display amphibians with their names, types, images, and descriptions.
-- Fetch data from an API using Retrofit.
-- Use Jetpack Compose for UI components.
-- Manage state using ViewModel.
-- Structure the project with a clear distinction between the UI layer and the data layer.
-- Load images efficiently using the Coil library.
+- Display a list of amphibians with their names, types, images, and descriptions.
+- Fetch data from a REST web service using Retrofit.
+- Utilize Jetpack Compose for building the user interface.
+- Manage UI-related data using ViewModel.
+- Separate the UI layer and the data layer for better code organization.
+- Load images efficiently with Coil library.
 - Parse JSON responses using kotlinx.serialization.
+- Implement Repository pattern for data handling.
+- Use Dependency Injection for better code maintainability.
+- Perform unit testing on ViewModel and Repository.
 
 ## Tools and Libraries Used
 - **Jetpack Compose**: For building UI components.
@@ -19,6 +22,9 @@ The Amphibians Android app is designed to showcase various amphibians, including
 - **Retrofit**: For making network requests.
 - **kotlinx.serialization**: For parsing JSON responses.
 - **Web Services**: To interact with the API.
+- **Repository Pattern**: For handling data operations.
+- **Dependency Injection**: For managing dependencies.
+- **JUnit**: For unit testing ViewModel and Repository.
 
 ## WireFrame/Mockup
 <img width="311" alt="Screenshot 2024-06-06 at 13 29 23" src="https://github.com/Hitendra27/Amphibians/assets/73651340/db50bc0b-8986-40d6-b5f7-6cb4d74d65ff">
@@ -38,10 +44,18 @@ To get a local copy up and running follow these simple steps.
 2. Open the project in Android Studio.
 3. Build and run the project on an Android device or emulator.
 
-### License
-Distributed under the MIT License. See LICENSE for more information.
+## Architecture
+The app follows Google's recommended best practices architecture to separate concerns and make the codebase more maintainable. The Repository pattern is used for data handling, and Dependency Injection is employed for managing dependencies.
 
-### Contact
-Hitendra Quessou - LinkedIn - GitHub - sanjay_quessou@yahoo.co.uk
+## Testing
+Unit tests are written for ViewModel and Repository to ensure the reliability and correctness of the app's logic.
 
-Project Link: https://github.com/yourusername/amphibians-app
+## License
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## Contact
+Hitendra Quessou - [LinkedIn](https://www.linkedin.com/in/hitendraquessou) - [GitHub](https://github.com/Hitendra2) - sanjay_quessou@yahoo.co.uk
+
+Project Link: [https://github.com/yourusername/amphibians-app](https://github.com/yourusername/amphibians-app)
+
+
