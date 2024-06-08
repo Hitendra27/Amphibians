@@ -8,15 +8,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.amphibians.R
+import com.example.amphibians.ui.theme.AmphibiansTheme
 
 @Composable
 fun HomeScreen(
+    ambhibiansUiState: String,
     modifier: Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
     ) {
     ResultScreen(
-        photos = ,
+        photos = ambhibiansUiState,
         modifier = modifier.padding(top = contentPadding.calculateTopPadding()) )
 
 }
@@ -34,8 +39,15 @@ fun ResultScreen(
         modifier = modifier
     ) {
         Text(
-            text = photos,
-            modifier = modifier
+            text = photos
         )
+    }
+}
+
+@Preview
+@Composable
+fun ResultScreenPreview() {
+    AmphibiansTheme {
+        ResultScreen(stringResource(R.string.placeholder_result), modifier = Modifier)
     }
 }
