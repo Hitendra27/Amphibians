@@ -11,7 +11,13 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 
-interface AmphibianApiService {
+interface AmphibiansApiService {
     @GET("amphibians")
     fun getAmphibians(): String
+}
+
+object AmphibiansApi {
+    val retrofitService : AmphibiansApiService by lazy {
+        retrofit.create(AmphibiansApiService::class.java)
+    }
 }
