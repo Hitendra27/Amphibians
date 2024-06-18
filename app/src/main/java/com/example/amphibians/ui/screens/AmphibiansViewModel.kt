@@ -4,6 +4,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.amphibians.network.AmphibiansApi
+import kotlinx.coroutines.launch
 
 class AmphibiansViewModel : ViewModel() {
     //** The mutable State stores the status of the most recent request */
@@ -22,7 +25,10 @@ class AmphibiansViewModel : ViewModel() {
      * [AmphibiansPhoto] [List] [MutableList].
      */
 
-    fun getAmphibianList() {
-        amphibiansUiState = "Set the Amphibian API status response here!"
+    private fun getAmphibianList() {
+        viewModelScope.launch {
+            val listResult = AmphibiansApi.retrofitService.getAmphibians()
+            amphibiansUiState = listResult
+        }
     }
 }
