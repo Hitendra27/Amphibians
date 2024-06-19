@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Amphibians</string>
+    <string name="loading_failed">Failed to load data</string>
+    <string name="retry">Retry</string>
+    <string name="loading">Loading...</string>
     <string name="placeholder_result">Placeholder result text</string>
+    <string name="ambhibians_photo">Ambhibians photo</string>
 </resources>
