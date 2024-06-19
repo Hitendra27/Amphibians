@@ -8,9 +8,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.amphibians.network.AmphibiansApi
 import kotlinx.coroutines.launch
 
+sealed interface AmphibiansUiState {
+    data class Success(val photos: String) : AmphibiansUiState
+    object Error : AmphibiansUiState
+    object Loading : AmphibiansUiState
+}
+
 class AmphibiansViewModel : ViewModel() {
     //** The mutable State stores the status of the most recent request */
-    var amphibiansUiState: String by mutableStateOf("")
+    var amphibiansUiState: AmphibiansUiState by mutableStateOf(AmphibiansUiState.Loading)
     private set
 
     /**
@@ -22,13 +28,17 @@ class AmphibiansViewModel : ViewModel() {
 
     /**
      * Gets Amphibian information from the Amphibians API Retrofit service and updates the
-     * [AmphibiansPhoto] [List] [MutableList].
+     * [AmphibiansPhotas] [List] [MutableList].
      */
 
     private fun getAmphibianList() {
         viewModelScope.launch {
-            val listResult = AmphibiansApi.retrofitService.getAmphibians()
-            amphibiansUiState = listResult
+           amphibiansUiState = try {
+                val listResult = AmphibiansApi.retrofitService.getAmphibians()
+                AmphibiansUiState.Success(listResult)
+            } catch (e: Exception) {
+                AmphibiansUiState.Error
+            }
         }
     }
 }

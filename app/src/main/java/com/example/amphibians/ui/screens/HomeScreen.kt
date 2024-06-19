@@ -21,11 +21,20 @@ fun HomeScreen(
     modifier: Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
     ) {
-    ResultScreen(
-        photos = ambhibiansUiState,
-        modifier = modifier.padding(top = contentPadding.calculateTopPadding()) )
-
+    when (ambhibiansUiState) {
+        is AmphibiansUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
+        is AmphibiansUiState.Success -> ResultScreen(
+            photos = ambhibiansUiState,
+            modifier = modifier.padding(top = contentPadding.calculateTopPadding())
+        )
+        is AmphibiansUiState.Error -> ErrorScreen(modifier = modifier.fillMaxSize())
+    }
 }
+
+/**
+ * LoadingScreen displaying a loading spinner.
+ */
+@Composable
 
 /**
  * ResultScreen displaying number of photos retrieved.
