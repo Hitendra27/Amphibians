@@ -29,14 +29,14 @@ import com.example.amphibians.ui.theme.AmphibiansTheme
 
 @Composable
 fun HomeScreen(
-    ambhibiansUiState: AmphibiansUiState,
+    amphibiansUiState: AmphibiansUiState,
     modifier: Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
     ) {
-    when (ambhibiansUiState) {
+    when (amphibiansUiState) {
         is AmphibiansUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
         is AmphibiansUiState.Success -> ResultScreen(
-            photos = ambhibiansUiState.photos,
+            photos = amphibiansUiState.photos,
             modifier = modifier.padding(top = contentPadding.calculateTopPadding())
         )
         is AmphibiansUiState.Error -> ErrorScreen(modifier = modifier.fillMaxSize())
