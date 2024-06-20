@@ -30,7 +30,7 @@ fun AmphibiansApp() {
         ) {
             val ambhibiansViewModel: AmphibiansViewModel = viewModel()
             HomeScreen(
-                ambhibiansUiState = ambhibiansViewModel.amphibiansUiState,
+                amphibiansUiState = ambhibiansViewModel.amphibiansUiState,
                 contentPadding = it,
                 modifier = Modifier
             )

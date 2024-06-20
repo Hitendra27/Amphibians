@@ -35,7 +35,9 @@ class AmphibiansViewModel : ViewModel() {
         viewModelScope.launch {
            amphibiansUiState = try {
                 val listResult = AmphibiansApi.retrofitService.getAmphibians()
-                AmphibiansUiState.Success(listResult)
+                AmphibiansUiState.Success(
+                    "Success: ${listResult.size} Amphibians retrieved"
+                )
             } catch (e: Exception) {
                 AmphibiansUiState.Error
             }
