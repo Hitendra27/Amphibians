@@ -1,6 +1,6 @@
 package com.example.amphibians.data
 
-import com.example.amphibians.network.AmphibiansApi
+import com.example.amphibians.network.AmphibiansApiService
 import com.example.amphibians.network.AmphibiansData
 
 interface AmphibiansRepository {
@@ -8,10 +8,10 @@ interface AmphibiansRepository {
     suspend fun getAmphibiansData(): List<AmphibiansData>
 }
 
-class NetworkAmphibiansRepository() : AmphibiansRepository {
-    override suspend fun getAmphibiansData(): List<AmphibiansData> {
-        return AmphibiansApi.retrofitService.getAmphibians()
-    }
+class NetworkAmphibiansRepository(
+    private val AmphibiansService: AmphibiansApiService
+) : AmphibiansRepository {
+    override suspend fun getAmphibiansData(): List<AmphibiansData> = AmphibiansService.getAmphibians()
 
 
 }
