@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,27 +21,46 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.amphibians.R
+import com.example.amphibians.network.AmphibiansData
 import com.example.amphibians.ui.theme.AmphibiansTheme
 
 @Composable
 fun HomeScreen(
     amphibiansUiState: AmphibiansUiState,
     modifier: Modifier,
-    contentPadding: PaddingValues = PaddingValues(0.dp),
+    contentPadding: PaddingValues = PaddingValues(0.dp)
     ) {
     when (amphibiansUiState) {
         is AmphibiansUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
-        is AmphibiansUiState.Success -> ResultScreen(
-            photos = amphibiansUiState.photos,
-            modifier = modifier.padding(top = contentPadding.calculateTopPadding())
-        )
+        is AmphibiansUiState.Success -> AmphibiansPhotoCard(photo = amphibiansUiState.photos, modifier = modifier.fillMaxSize())
         is AmphibiansUiState.Error -> ErrorScreen(modifier = modifier.fillMaxSize())
     }
+}
+
+/**
+ * AsynceImage photoCard
+ */
+@Composable
+fun AmphibiansPhotoCard(photo: AmphibiansData, modifier: Modifier = Modifier) {
+    AsyncImage(
+        model = ImageRequest.Builder(context = LocalContext.current)
+            .data(photo.imgSrc)
+            .build(),
+        error = painterResource(R.drawable.ic_broken_image),
+        placeholder = painterResource(R.drawable.loading_img),
+        contentDescription = stringResource(R.string.amphibians_photo),
+        contentScale = ContentScale.Crop,
+        modifier = Modifier.fillMaxWidth()
+        )
 }
 
 /**

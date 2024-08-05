@@ -13,10 +13,11 @@ import com.example.amphibians.AmphibiansApplication
 import com.example.amphibians.data.AmphibiansRepository
 import com.example.amphibians.data.NetworkAmphibiansRepository
 import com.example.amphibians.network.AmphibiansApi
+import com.example.amphibians.network.AmphibiansData
 import kotlinx.coroutines.launch
 
 sealed interface AmphibiansUiState {
-    data class Success(val photos: String) : AmphibiansUiState
+    data class Success(val photos: AmphibiansData) : AmphibiansUiState
     object Error : AmphibiansUiState
     object Loading : AmphibiansUiState
 }
@@ -44,9 +45,7 @@ class AmphibiansViewModel(
         viewModelScope.launch {
            amphibiansUiState = try {
                 val result = amphibiansRepository.getAmphibiansData()[0]
-                AmphibiansUiState.Success(
-                    "First Amphibian image URL: ${result.imgSrc}"
-                )
+                AmphibiansUiState.Success(amphibiansRepository.getAmphibiansData()[0])
             } catch (e: Exception) {
                 AmphibiansUiState.Error
             }
