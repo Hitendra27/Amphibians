@@ -43,9 +43,9 @@ class AmphibiansViewModel(
     private fun getAmphibianList() {
         viewModelScope.launch {
            amphibiansUiState = try {
-                val listResult = amphibiansRepository.getAmphibiansData()
+                val result = amphibiansRepository.getAmphibiansData()[0]
                 AmphibiansUiState.Success(
-                    "Success: ${listResult.size} Amphibians retrieved"
+                    "First Amphibian image URL: ${result.imgSrc}"
                 )
             } catch (e: Exception) {
                 AmphibiansUiState.Error
