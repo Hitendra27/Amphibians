@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -116,6 +118,23 @@ fun ResultScreen(
             style = MaterialTheme.typography.bodyLarge
         )
     }
+}
+
+@Composable
+fun PhotosGridScreen(
+    photos: List<AmphibiansData>,
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(0.dp)
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(150.dp),
+        modifier = modifier.padding(horizontal = 4.dp),
+        contentPadding = contentPadding
+    ) {
+        items(items = photos, key = { photo -> photo.id }) {
+            photo -> AmphibiansPhotoCard(photo)
+      }
+     }
 }
 
 @Preview
