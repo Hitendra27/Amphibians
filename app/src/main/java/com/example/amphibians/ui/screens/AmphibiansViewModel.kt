@@ -17,7 +17,7 @@ import com.example.amphibians.network.AmphibiansData
 import kotlinx.coroutines.launch
 
 sealed interface AmphibiansUiState {
-    data class Success(val photos: AmphibiansData) : AmphibiansUiState
+    data class Success(val photos: List<AmphibiansData>) : AmphibiansUiState
     object Error : AmphibiansUiState
     object Loading : AmphibiansUiState
 }
@@ -45,7 +45,7 @@ class AmphibiansViewModel(
         viewModelScope.launch {
            amphibiansUiState = try {
                 val result = amphibiansRepository.getAmphibiansData()[0]
-                AmphibiansUiState.Success(amphibiansRepository.getAmphibiansData()[0])
+                AmphibiansUiState.Success(amphibiansRepository.getAmphibiansData())
             } catch (e: Exception) {
                 AmphibiansUiState.Error
             }

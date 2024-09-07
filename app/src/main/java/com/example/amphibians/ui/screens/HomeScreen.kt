@@ -34,6 +34,7 @@ import coil.request.ImageRequest
 import com.example.amphibians.R
 import com.example.amphibians.network.AmphibiansData
 import com.example.amphibians.ui.theme.AmphibiansTheme
+import androidx.compose.foundation.lazy.grid.items
 
 @Composable
 fun HomeScreen(
@@ -43,7 +44,7 @@ fun HomeScreen(
     ) {
     when (amphibiansUiState) {
         is AmphibiansUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
-        is AmphibiansUiState.Success -> AmphibiansPhotoCard(photo = amphibiansUiState.photos, modifier = modifier.fillMaxSize())
+        is AmphibiansUiState.Success -> PhotosGridScreen(photos = amphibiansUiState.photos, contentPadding = contentPadding)
         is AmphibiansUiState.Error -> ErrorScreen(modifier = modifier.fillMaxSize())
     }
 }
@@ -131,7 +132,7 @@ fun PhotosGridScreen(
         modifier = modifier.padding(horizontal = 4.dp),
         contentPadding = contentPadding
     ) {
-        items(items = photos, key = { photo -> photo.id }) {
+        items(items = photos, key = { photo -> photo.imgSrc }) {
             photo -> AmphibiansPhotoCard(photo)
       }
      }
