@@ -33,6 +33,8 @@ Amphibians is an Android app that displays various amphibians' information, incl
 
 <img width="391" alt="Screenshot 2024-07-12 at 14 03 04" src="https://github.com/user-attachments/assets/4ce8a647-caed-4e48-a9d3-cc2aeb8d04db">
 
+<img width="386" alt="Screenshot 2024-09-24 at 13 55 31" src="https://github.com/user-attachments/assets/250d6ac5-14ed-4595-b1f6-ed145199446c">
+
 ## Getting Started
 To get a local copy up and running follow these simple steps.
 
