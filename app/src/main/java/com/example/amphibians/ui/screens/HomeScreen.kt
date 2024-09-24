@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -35,6 +36,8 @@ import com.example.amphibians.R
 import com.example.amphibians.network.AmphibiansData
 import com.example.amphibians.ui.theme.AmphibiansTheme
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 
 @Composable
 fun HomeScreen(
@@ -54,16 +57,23 @@ fun HomeScreen(
  */
 @Composable
 fun AmphibiansPhotoCard(photo: AmphibiansData, modifier: Modifier = Modifier) {
-    AsyncImage(
-        model = ImageRequest.Builder(context = LocalContext.current)
-            .data(photo.imgSrc)
-            .build(),
-        error = painterResource(R.drawable.ic_broken_image),
-        placeholder = painterResource(R.drawable.loading_img),
-        contentDescription = stringResource(R.string.amphibians_photo),
-        contentScale = ContentScale.Crop,
-        modifier = Modifier.fillMaxWidth()
+
+    Card(
+        modifier = modifier,
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+    ) {
+
+        AsyncImage(
+            model = ImageRequest.Builder(context = LocalContext.current)
+                .data(photo.imgSrc)
+                .build(),
+            error = painterResource(R.drawable.ic_broken_image),
+            placeholder = painterResource(R.drawable.loading_img),
+            contentDescription = stringResource(R.string.amphibians_photo),
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxWidth()
         )
+    }
 }
 
 /**
@@ -133,8 +143,14 @@ fun PhotosGridScreen(
         contentPadding = contentPadding
     ) {
         items(items = photos, key = { photo -> photo.imgSrc }) {
-            photo -> AmphibiansPhotoCard(photo)
-      }
+            photo -> AmphibiansPhotoCard(
+            photo,
+                modifier = modifier
+                    .padding(4.dp)
+                    .fillMaxWidth()
+                    .aspectRatio(1.5f)
+            )
+        }
      }
 }
 
