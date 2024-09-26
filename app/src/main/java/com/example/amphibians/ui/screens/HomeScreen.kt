@@ -70,7 +70,7 @@ fun AmphibiansPhotoCard(
         Column {
             Text(
                 text = amphibian.name,
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.displayMedium,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
             AsyncImage(
