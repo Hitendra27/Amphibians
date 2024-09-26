@@ -11,12 +11,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,9 +35,11 @@ import com.example.amphibians.R
 import com.example.amphibians.network.AmphibiansData
 import com.example.amphibians.ui.theme.AmphibiansTheme
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.ui.text.style.TextAlign
 
 @Composable
 fun HomeScreen(
@@ -49,7 +50,7 @@ fun HomeScreen(
     ) {
     when (amphibiansUiState) {
         is AmphibiansUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
-        is AmphibiansUiState.Success -> PhotosGridScreen(photos = amphibiansUiState.photos, contentPadding = contentPadding)
+        is AmphibiansUiState.Success -> PhotosGridScreen(amphibians = amphibiansUiState.photos, contentPadding = contentPadding)
         is AmphibiansUiState.Error -> ErrorScreen(modifier = modifier.fillMaxSize(), retryAction = retryAction)
     }
 }
@@ -58,23 +59,37 @@ fun HomeScreen(
  * AsynceImage photoCard
  */
 @Composable
-fun AmphibiansPhotoCard(photo: AmphibiansData, modifier: Modifier = Modifier) {
-
+fun AmphibiansPhotoCard(
+    amphibian: AmphibiansData,
+    modifier: Modifier = Modifier) {
     Card(
         modifier = modifier,
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        shape = RoundedCornerShape(8.dp)
     ) {
-
-        AsyncImage(
-            model = ImageRequest.Builder(context = LocalContext.current)
-                .data(photo.imgSrc)
-                .build(),
-            error = painterResource(R.drawable.ic_broken_image),
-            placeholder = painterResource(R.drawable.loading_img),
-            contentDescription = stringResource(R.string.amphibians_photo),
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxWidth()
-        )
+        Column {
+            Text(
+                text = amphibian.name,
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+            )
+            AsyncImage(
+                model = ImageRequest.Builder(context = LocalContext.current)
+                    .data(amphibian.imgSrc)
+                    .build(),
+                error = painterResource(R.drawable.ic_broken_image),
+                placeholder = painterResource(R.drawable.loading_img),
+                contentDescription = stringResource(R.string.amphibians_photo),
+                contentScale = ContentScale.FillWidth,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Text(
+                text = amphibian.description,
+                textAlign = TextAlign.Justify,
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+            )
+        }
     }
 }
 
@@ -141,25 +156,27 @@ fun ResultScreen(
 
 @Composable
 fun PhotosGridScreen(
-    photos: List<AmphibiansData>,
+    amphibians: List<AmphibiansData>,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(150.dp),
-        modifier = modifier.padding(horizontal = 4.dp),
-        contentPadding = contentPadding
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = contentPadding,
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        items(items = photos, key = { photo -> photo.imgSrc }) {
-            photo -> AmphibiansPhotoCard(
-            photo,
+        items(
+            items = amphibians,
+            key = { amphibian ->
+                amphibian.name
+            }
+        ) { amphibian ->
+            AmphibiansPhotoCard(
+                amphibian = amphibian,
                 modifier = modifier
-                    .padding(4.dp)
-                    .fillMaxWidth()
-                    .aspectRatio(1.5f)
-            )
+                    .fillMaxSize())
         }
-     }
+    }
 }
 
 @Preview
