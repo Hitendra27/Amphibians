@@ -7,7 +7,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -28,9 +27,10 @@ fun AmphibiansApp() {
         Surface(
             modifier = Modifier.fillMaxSize()
         ) {
-            val ambhibiansViewModel: AmphibiansViewModel = viewModel(factory = AmphibiansViewModel.Factory)
+            val amphibiansViewModel: AmphibiansViewModel = viewModel(factory = AmphibiansViewModel.Factory)
             HomeScreen(
-                amphibiansUiState = ambhibiansViewModel.amphibiansUiState,
+                amphibiansUiState = amphibiansViewModel.amphibiansUiState,
+                retryAction = amphibiansViewModel::getAmphibianList,
                 contentPadding = it,
                 modifier = Modifier
             )

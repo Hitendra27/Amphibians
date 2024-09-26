@@ -36,19 +36,21 @@ import com.example.amphibians.R
 import com.example.amphibians.network.AmphibiansData
 import com.example.amphibians.ui.theme.AmphibiansTheme
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 
 @Composable
 fun HomeScreen(
     amphibiansUiState: AmphibiansUiState,
+    retryAction: () -> Unit,
     modifier: Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp)
     ) {
     when (amphibiansUiState) {
         is AmphibiansUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
         is AmphibiansUiState.Success -> PhotosGridScreen(photos = amphibiansUiState.photos, contentPadding = contentPadding)
-        is AmphibiansUiState.Error -> ErrorScreen(modifier = modifier.fillMaxSize())
+        is AmphibiansUiState.Error -> ErrorScreen(modifier = modifier.fillMaxSize(), retryAction = retryAction)
     }
 }
 
@@ -100,7 +102,10 @@ fun LoadingScreen(modifier: Modifier) {
  * ErrorScreen displaying an error message.
  */
 @Composable
-fun ErrorScreen(modifier: Modifier) {
+fun ErrorScreen(
+    modifier: Modifier,
+    retryAction: () -> Unit
+) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
@@ -109,6 +114,9 @@ fun ErrorScreen(modifier: Modifier) {
         Image(painter = painterResource(id = R.drawable.ic_connection_error), contentDescription = ""
         )
         Text(text = stringResource(R.string.loading_failed), modifier = Modifier.padding(16.dp))
+        Button(onClick = retryAction) {
+            Text(stringResource(R.string.retry))
+        }
     }
 }
 

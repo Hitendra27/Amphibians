@@ -20,8 +20,7 @@ class AmphibiansViewModelTest {
                 amphibiansRepository = FakeNetworkAmphibiansPhotosRepository()
             )
             assertEquals(
-                AmphibiansUiState.Success("Success: ${FakeDataSource.photosList.size} Amphibians " +
-                "retrieved"),
+                AmphibiansUiState.Success(FakeDataSource.photosList),
                 amphibiansViewModel.amphibiansUiState
             )
         }

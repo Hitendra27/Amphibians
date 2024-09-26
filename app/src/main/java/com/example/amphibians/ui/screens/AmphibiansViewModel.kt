@@ -41,7 +41,7 @@ class AmphibiansViewModel(
      * [AmphibiansPhotas] [List] [MutableList].
      */
 
-    private fun getAmphibianList() {
+    public fun getAmphibianList() {
         viewModelScope.launch {
            amphibiansUiState = try {
                 val result = amphibiansRepository.getAmphibiansData()[0]
